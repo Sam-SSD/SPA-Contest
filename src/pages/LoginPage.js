@@ -7,13 +7,13 @@ export function LoginPage() {
     <div class="auth-container">
       <h2>Login</h2>
       <form id="login-form">
-        <label>Email</label>
-        <input type="email" name="email" required />
-        <label>Password</label>
-        <input type="password" name="password" required />
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="" required />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" placeholder="" required />
         <button type="submit">Log in</button>
       </form>
-      <p>Don't have an account? <a href="/register" data-link>Register</a></p>
+      <p class="auth-register-text">Don’t have an account? <a href="/register" data-link>Register</a></p>
     </div>
   `;
 }
@@ -32,10 +32,10 @@ export function loginPageLogic() {
           login(user);
           navigate('/dashboard');
         } else {
-          alert('Invalid credentials');
+          Swal.fire('Error', 'Invalid credentials', 'error');
         }
       } catch (err) {
-        alert('Login error');
+        Swal.fire('Error', 'Login error', 'error');
       }
     };
   }

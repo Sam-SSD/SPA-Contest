@@ -6,17 +6,17 @@ export function RegisterPage() {
     <div class="auth-container">
       <h2>Register</h2>
       <form id="register-form">
-        <label>Full Name</label>
-        <input type="text" name="fullName" required />
-        <label>Email</label>
-        <input type="email" name="email" required />
-        <label>Password</label>
-        <input type="password" name="password" required />
-        <label>Confirm Password</label>
-        <input type="password" name="confirmPassword" required />
+        <label for="fullName">Full Name</label>
+        <input type="text" name="fullName" id="fullName" required />
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required />
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required />
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" required />
         <button type="submit">Register</button>
       </form>
-      <p>Already have an account? <a href="/login" data-link>Login</a></p>
+      <p class="auth-register-text">Already have an account? <a href="/login" data-link>Login</a></p>
     </div>
   `;
 }
@@ -31,7 +31,7 @@ export function registerPageLogic() {
       const password = form.password.value;
       const confirmPassword = form.confirmPassword.value;
       if (password !== confirmPassword) {
-        alert('Passwords do not match');
+        Swal.fire('Error', 'Passwords do not match', 'error');
         return;
       }
       try {
@@ -40,10 +40,10 @@ export function registerPageLogic() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ fullName, email, password, role: 'visitor' })
         });
-        alert('Registration successful!');
+        Swal.fire('Success', 'Registration successful!', 'success');
         navigate('/login');
       } catch (err) {
-        alert('Registration error');
+        Swal.fire('Error', 'Registration error', 'error');
       }
     };
   }

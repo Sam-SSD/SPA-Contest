@@ -7,6 +7,7 @@ export async function DashboardPage() {
   return `
     <div class="dashboard-container">
       <aside class="sidebar">
+        <div class="sidebar-title">Events</div>
         <div class="profile">
           <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Profile" class="profile-img" />
           <div>
@@ -17,10 +18,10 @@ export async function DashboardPage() {
         <nav>
           <ul>
             ${user.role === 'admin' ? 
-              '<li><a href="/dashboard" class="active" data-link>Events</a></li>' : 
-              '<li><a href="/dashboard/enrollments" data-link>Enrollments</a></li><li><a class="active" href="/dashboard" data-link>Events</a></li>'
+              '<li><a href="/dashboard" class="active" data-link><img src="/public/img/events.svg" class="sidebar-icon" alt="Events" width="22" height="22"/>Events</a></li>' : 
+              '<li><a href="/dashboard/enrollments" data-link><img src="/public/img/enrollments.svg" class="sidebar-icon" alt="Enrollments" width="22" height="22"/>Enrollments</a></li><li><a class="active" href="/dashboard" data-link><img src="/public/img/events.svg" class="sidebar-icon" alt="Events" width="22" height="22"/>Events</a></li>'
             }
-            <li><button id="logout-btn">Logout</button></li>
+            <li><button id="logout-btn"><img src="/public/img/logout.svg" class="sidebar-icon" alt="Logout" width="22" height="22"/>Logout</button></li>
           </ul>
         </nav>
       </aside>

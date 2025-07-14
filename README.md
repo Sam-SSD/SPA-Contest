@@ -1,48 +1,42 @@
-# Event Management SPA
+# SPA-Contest
 
-A modern Single Page Application (SPA) for event management, built with vanilla JavaScript, HTML5, CSS3, and powered by Vite and json-server. This project allows administrators to manage events and visitors to enroll in them, with full authentication, protected routes, and session persistence.
-
----
-
-## 👤 Coder Info
-- **Name:** Your Name
-- **Clan:** Your Clan
-- **Email:** your.email@example.com
-- **ID:** 123456789
+A modern, professional Single Page Application (SPA) for event management, built with vanilla JavaScript, HTML5, and CSS3. The project uses Vite for fast development and `json-server` as a mock REST API. It features a clean, responsive UI faithful to provided mockups, robust authentication, role-based dashboards, and a seamless SPA navigation experience.
 
 ---
 
 ## 🚀 Features
-- **User Authentication:** Register and login with two roles: Admin and Visitor.
+- **User Authentication:** Secure registration and login with two roles: Admin and Visitor.
 - **Role-based Dashboard:**
-  - **Admin:** Full CRUD for events.
-  - **Visitor:** View and enroll in available events, see their own enrollments.
+  - **Admin:** Full CRUD for events (create, edit, delete).
+  - **Visitor:** View and enroll in available events, see personal enrollments.
 - **Session Persistence:** User session is stored in LocalStorage and persists across reloads.
-- **Protected Routes:** Only authenticated users can access dashboard routes.
-- **Responsive UI:** Clean, modern, and mobile-friendly interface faithful to the provided design.
+- **Protected Routes:** Only authenticated users can access dashboard routes; admin-only sections are enforced.
+- **Responsive UI:** Modern, mobile-friendly interface, pixel-perfect to the provided mockups.
+- **SweetAlert2 Integration:** All alerts and confirmations use beautiful SweetAlert2 modals.
 - **Mock Database:** All data is managed via `json-server` (REST API simulation).
-- **Vite-powered:** Fast development server and hot reload.
+- **Vite-powered:** Fast development server, hot reload, and modern build tooling.
 
 ---
 
 ## 📁 Project Structure
 ```
-SPA/
+SPA-Contest/
 ├── public/
+│   └── img/           # Icons, event images, SVGs
 ├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── pages/
-│   ├── router/
-│   ├── services/
-│   ├── utils/
-│   └── main.js
-├── db.json
-├── style.css
-├── index.html
-├── package.json
-├── README.md
-└── event-management-spa.postman_collection.json
+│   ├── css/           # Global and page-specific styles (style.css)
+│   ├── components/    # Reusable UI components (EventList, etc.)
+│   ├── pages/         # Main views (Login, Register, Dashboard, etc.)
+│   ├── router/        # SPA router logic
+│   ├── services/      # API abstraction
+│   ├── utils/         # Auth/session helpers
+│   └── main.js        # App entry point
+├── db.json            # Mock database for json-server
+├── index.html         # App root HTML
+├── package.json       # Scripts and dependencies
+├── README.md          # Project documentation
+├── PostmanCollection.json # Postman API tests
+└── ...
 ```
 
 ---
@@ -51,8 +45,8 @@ SPA/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/event-management-spa.git
-   cd event-management-spa
+   git clone https://github.com/yourusername/SPA-Contest.git
+   cd SPA-Contest
    ```
 2. **Install dependencies:**
    ```bash
@@ -108,24 +102,29 @@ SPA/
 
 ---
 
-## 🖥️ Main Views
-- **Login:** `/login`
-- **Register:** `/register`
-- **Dashboard:** `/dashboard`
+## 🖥️ Main Views & Navigation
+- **Login:** `/login` — User authentication
+- **Register:** `/register` — New user registration
+- **Dashboard:** `/dashboard` — Main event list (role-based)
 - **Create Event:** `/dashboard/events/create` (admin only)
 - **Edit Event:** `/dashboard/events/edit?id=EVENT_ID` (admin only)
 - **Enrollments:** `/dashboard/enrollments` (visitor only)
-- **Not Found:** `/not-found`
+- **Not Found:** `/not-found` — Custom 404 page
 
 ---
 
-## 📚 Notes
+## 💡 Technical Notes
 - All code and UI are in English.
-- The project is fully functional and easy to extend.
-- For any issues, please open an issue or contact the coder.
+- Alerts and confirmations use SweetAlert2 for a modern UX.
+- The project is fully functional, modular, and easy to extend.
+- Responsive design ensures usability on all devices.
+- For any issues, please open an issue or contact the author.
 
 ---
 
 ## 🏆 Author & License
-- Developed by **Your Name** for the JavaScript SPA Performance Test.
-- © 2024 Your Name. All rights reserved.
+- Developed by **Samuel Serna Delgado**
+- Email: samuserna2005@gmail.com
+- For the JavaScript SPA Performance Test
+- © 2024 Samuel Serna Delgado. All rights reserved.
+- Licensed under the ISC License.

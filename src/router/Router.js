@@ -1,6 +1,6 @@
 import { isAuthenticated, getUserRole } from '../utils/auth.js';
 
-// 🌐 Rutas reales de tu aplicación
+// 🌐 Real application routes
 const routes = {
   '/': '../pages/LoginPage.js',
   '/login': '../pages/LoginPage.js',
@@ -12,7 +12,7 @@ const routes = {
   '/not-found': '../pages/NotFoundPage.js'
 };
 
-// 🚀 Enlaces SPA con data-link y logout
+// 🚀 SPA links with data-link and logout
 document.body.addEventListener('click', (e) => {
   if (e.target.matches('[data-link]')) {
     e.preventDefault();
@@ -21,15 +21,15 @@ document.body.addEventListener('click', (e) => {
 
   if (e.target.id === 'logout-btn') {
     e.preventDefault();
-    // Si tienes SweetAlert2 instalado, usa esto:
+    // If you have SweetAlert2 installed, use this:
     if (window.Swal) {
       Swal.fire({
-        title: '¿Cerrar sesión?',
-        text: 'Tu sesión actual se cerrará',
+        title: 'Log out?',
+        text: 'Your current session will be closed',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: 'Sí, cerrar',
-        cancelButtonText: 'Cancelar'
+        confirmButtonText: 'Yes, log out',
+        cancelButtonText: 'Cancel'
       }).then((result) => {
         if (result.isConfirmed) {
           localStorage.removeItem('user');
@@ -37,8 +37,8 @@ document.body.addEventListener('click', (e) => {
         }
       });
     } else {
-      // Fallback si no tienes SweetAlert2
-      if (confirm('¿Cerrar sesión? Tu sesión actual se cerrará')) {
+      // Fallback if you don't have SweetAlert2
+      if (confirm('Log out? Your current session will be closed')) {
         localStorage.removeItem('user');
         navigate('/');
       }
@@ -46,9 +46,9 @@ document.body.addEventListener('click', (e) => {
   }
 });
 
-// 📦 Navegador SPA con validación de sesión y rol
+// 📦 SPA navigator with session and role validation
 export async function navigate(pathname) {
-  console.log('Navegando a:', pathname);
+  console.log('Navigating to:', pathname);
 
   let user;
   try {
@@ -58,12 +58,12 @@ export async function navigate(pathname) {
     user = null;
   }
 
-  // 🚫 Ya logueado y quiere volver al login
+  // 🚫 Already logged in and wants to go back to login
   if ((pathname === '/' || pathname === '/login') && user) {
     return navigate('/dashboard');
   }
 
-  // 🔐 No logueado y quiere acceder a una ruta protegida
+  // 🔐 Not logged in and wants to access a protected route
   const isProtected = [
     '/dashboard',
     '/dashboard/events/create',
@@ -72,48 +72,48 @@ export async function navigate(pathname) {
   ];
   if (!user && isProtected.includes(pathname)) {
     if (window.Swal) {
-      Swal.fire('Ups', 'Primero iniciá sesión', 'warning');
+      Swal.fire('Oops', 'Please log in first', 'warning');
     } else {
-      alert('Primero iniciá sesión');
+      Swal.fire('Oops', 'Please log in first', 'warning');
     }
     return navigate('/');
   }
 
-  // 🔒 Protección de rol: solo admin puede acceder a ciertas rutas de creación/edición
+  // 🔒 Role protection: only admin can access certain creation/edit routes
   const adminOnlyRoutes = ['/dashboard/events/create', '/dashboard/events/edit'];
   if (adminOnlyRoutes.includes(pathname) && user?.role !== 'admin') {
     if (window.Swal) {
-      Swal.fire('Acceso denegado', 'No tienes permisos para acceder a esta sección', 'error');
+      Swal.fire('Access denied', 'You do not have permission to access this section', 'error');
     } else {
-      alert('Acceso denegado: No tienes permisos para acceder a esta sección');
+      Swal.fire('Access denied', 'You do not have permission to access this section', 'error');
     }
     return navigate('/dashboard');
   }
 
-  // Permitir a usuarios visitor/estudiante ver enrollments y dashboard
+  // Allow visitor/student users to view enrollments and dashboard
   const route = routes[pathname];
   if (!route) {
-    console.error('Ruta no encontrada:', pathname);
+    console.error('Route not found:', pathname);
     return navigate('/not-found');
   }
 
   try {
-    console.log('Importando módulo:', route);
-    // Importamos el módulo correspondiente dinámicamente
+    console.log('Importing module:', route);
+    // Dynamically import the corresponding module
     const module = await import(route);
     console.log('Módulo importado:', module);
 
-    // Limpiamos y preparamos el contenedor
+    // Clean and prepare the container
     const app = document.getElementById('app');
     if (!app) throw new Error('Contenedor app no encontrado');
 
-    // Renderizamos el contenido de la página
+    // Render the page content
     let pageContent;
-    // Buscamos una función exportada que podamos usar
+    // Look for an exported function we can use
     if (module.default) {
       pageContent = await module.default();
     } else {
-      // Buscamos la primera función exportada
+      // Look for the first exported function
       for (const key in module) {
         if (typeof module[key] === 'function') {
           pageContent = await module[key]();
@@ -121,7 +121,7 @@ export async function navigate(pathname) {
         }
       }
 
-      // Si no encontramos ninguna función, usamos el primer valor exportado
+      // If we don't find any function, use the first exported value
       if (!pageContent) {
         pageContent = Object.values(module)[0];
       }
@@ -130,22 +130,22 @@ export async function navigate(pathname) {
     if (pageContent) {
       app.innerHTML = typeof pageContent === 'function' ? await pageContent() : pageContent;
     } else {
-      throw new Error('No se pudo encontrar contenido exportado en el módulo');
+      throw new Error('Could not find exported content in the module');
     }
 
-    // Ejecutar cualquier script de inicialización específico según la página
+    // Run any page-specific initialization script
     if (pathname === '/' || pathname === '/login') {
-      // Inicializar página de login
+      // Initialize login page
       if (module.loginPageLogic && typeof module.loginPageLogic === 'function') {
         module.loginPageLogic();
       }
     } else if (pathname === '/register') {
-      // Inicializar página de registro si existe la función
-      if (module.setupRegister && typeof module.setupRegister === 'function') {
-        module.setupRegister();
+      // Initialize register page if the function exists
+      if (module.registerPageLogic && typeof module.registerPageLogic === 'function') {
+        module.registerPageLogic();
       }
     } else if (pathname.includes('/dashboard')) {
-      // Inicializar dashboard y otras páginas según la ruta
+      // Initialize dashboard and other pages according to the route
       if (pathname === '/dashboard') {
         if (module.setupDashboard && typeof module.setupDashboard === 'function') {
           module.setupDashboard();
@@ -169,26 +169,26 @@ export async function navigate(pathname) {
       }
     }
 
-    // Actualizamos la URL sin recargar
+    // Update the URL without reloading
     history.pushState({}, '', pathname);
   } catch (err) {
-    console.error('Error navegando:', err);
+    console.error('Navigation error:', err);
     if (window.Swal) {
-      Swal.fire('Ups', 'Algo salió mal al cargar la ruta', 'error');
+      Swal.fire('Oops', 'Something went wrong loading the route', 'error');
     } else {
-      alert('Ups, algo salió mal al cargar la ruta');
+      Swal.fire('Oops', 'Something went wrong loading the route', 'error');
     }
     if (pathname !== '/') navigate('/');
   }
 }
 
-// 🔙 Back/forward del navegador
+// 🔙 Browser back/forward
 window.addEventListener('popstate', () => {
   navigate(location.pathname);
 });
 
-// Inicialización del router
+// Router initialization
 export function initRouter() {
-  // 🚀 Cargar ruta actual al iniciar la app
+  // 🚀 Load current route on app start
   navigate(location.pathname);
 }

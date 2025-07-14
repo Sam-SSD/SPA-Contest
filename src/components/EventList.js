@@ -7,26 +7,33 @@ export async function EventList() {
   const events = await fetchAPI('/events');
   let html = `<div class="events-list">`;
   if (user.role === 'admin') {
-    html += `<a href="/dashboard/events/create" data-link class="btn">Add New Event</a>`;
+    html += `<div class="event-header-bar"><a href="/dashboard/events/create" class="add-event-btn" data-link>ADD NEW EVENT</a></div>`;
   }
-  html += `<table><thead><tr><th>Name</th><th>Description</th><th>Capacity</th><th>Date</th><th></th></tr></thead><tbody>`;
+  html += `<table class="event-table"><thead><tr><th></th><th>Name</th><th>Description</th><th>Capacity</th><th>Date</th><th></th></tr></thead><tbody>`;
   for (const event of events) {
-    html += `<tr>
+    html += `<tr class="event-row">
+      <td><img src="/public/img/eventos 1.png" alt="event" class="event-img" /></td>
       <td>${event.name}</td>
       <td>${event.description}</td>
       <td>${event.capacity}</td>
       <td>${event.date}</td>
-      <td>`;
+      <td style="text-align:right;">`;
     if (user.role === 'admin') {
-      html += `<button onclick="editEvent(${event.id})">Edit</button>
-      <button onclick="deleteEvent(${event.id})">Delete</button>`;
+      html += `
+        <button class="icon-btn" title="Edit" onclick="editEvent(${event.id})">
+          <img src="/public/img/edit.svg" alt="Edit" width="22" height="22" />
+        </button>
+        <button class="icon-btn" title="Delete" onclick="deleteEvent(${event.id})">
+          <img src="/public/img/delete.svg" alt="Delete" width="22" height="22" />
+        </button>
+      `;
     } else {
       // Check if event is sold out
       const enrollments = await fetchAPI(`/enrollments?eventId=${event.id}`);
       if (enrollments.length >= event.capacity) {
-        html += `<button disabled>Sold Out</button>`;
+        html += `<button class="event-btn soldout" disabled>sold out</button>`;
       } else {
-        html += `<a href="javascript:void(0)" onclick="enrollEvent(${event.id})" class="btn">Enroll</a>`;
+        html += `<button class="event-btn enroll" onclick="enrollEvent(${event.id})">enroll</button>`;
       }
     }
     html += `</td></tr>`;
@@ -43,16 +50,26 @@ window.editEvent = async function(id) {
     // Y navegamos a la página de edición
     navigate('/dashboard/events/edit');
   } catch (err) {
-    alert('Error loading event for editing');
+    Swal.fire('Error', 'Error loading event for editing', 'error');
     console.error(err);
   }
 };
 
 window.deleteEvent = async function(id) {
-  if (confirm('Are you sure you want to delete this event?')) {
-    await fetchAPI(`/events/${id}`, { method: 'DELETE' });
-    navigate('/dashboard');
-  }
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You won\'t be able to revert this!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'Cancel'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await fetchAPI(`/events/${id}`, { method: 'DELETE' });
+      Swal.fire('Deleted!', 'Event has been deleted.', 'success');
+      navigate('/dashboard');
+    }
+  });
 };
 
 window.enrollEvent = async function(eventId) {
@@ -63,10 +80,10 @@ window.enrollEvent = async function(eventId) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ userId: user.id, eventId })
     });
-    alert('Successfully enrolled!');
+    Swal.fire('Success', 'Successfully enrolled!', 'success');
     navigate('/dashboard/enrollments');
   } catch (err) {
-    alert('Error enrolling in event');
+    Swal.fire('Error', 'Error enrolling in event', 'error');
     console.error(err);
   }
 };

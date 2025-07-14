@@ -6,34 +6,8 @@
       "email": "admin@admin.com",
       "password": "admin123",
       "role": "admin"
-    },
-    {
-      "fullName": "Samuel Serna Delgado",
-      "email": "samuserna2005@gmail.com",
-      "password": "123",
-      "role": "visitor",
-      "id": 2
     }
   ],
-  "events": [
-    {
-      "name": "w",
-      "description": "w",
-      "date": "1111-11-11",
-      "capacity": 2,
-      "id": 1
-    }
-  ],
-  "enrollments": [
-    {
-      "userId": 2,
-      "eventId": 1,
-      "id": 1
-    },
-    {
-      "userId": 2,
-      "eventId": 1,
-      "id": 2
-    }
-  ]
+  "events": [],
+  "enrollments": []
 }

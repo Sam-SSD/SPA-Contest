@@ -28,7 +28,7 @@ export async function renderApp() {
       return;
     }
     app.innerHTML = await DashboardPage();
-    document.getElementById('logout-link').onclick = () => {
+    document.getElementById('logout-btn').onclick = () => {
       logout();
       window.location.hash = '/login';
     };
@@ -40,7 +40,7 @@ export async function renderApp() {
       return;
     }
     app.innerHTML = await EnrollmentsPage();
-    document.getElementById('logout-link').onclick = () => {
+    document.getElementById('logout-btn').onclick = () => {
       logout();
       window.location.hash = '/login';
     };

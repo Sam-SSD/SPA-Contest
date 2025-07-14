@@ -1,6 +1,6 @@
 # SPA-Contest
 
-A modern, professional Single Page Application (SPA) for event management, built with vanilla JavaScript, HTML5, and CSS3. The project uses Vite for fast development and `json-server` as a mock REST API. It features a clean, responsive UI faithful to provided mockups, robust authentication, role-based dashboards, and a seamless SPA navigation experience.
+A modern, professional Single Page Application (SPA) for event management, built with vanilla JavaScript, HTML5, and CSS3. The project uses Vite for fast development and [`json-server`](https://github.com/typicode/json-server) as a local REST API for development. It features a clean, responsive UI faithful to provided mockups, robust authentication, role-based dashboards, and a seamless SPA navigation experience.
 
 ---
 
@@ -13,7 +13,7 @@ A modern, professional Single Page Application (SPA) for event management, built
 - **Protected Routes:** Only authenticated users can access dashboard routes; admin-only sections are enforced.
 - **Responsive UI:** Modern, mobile-friendly interface, pixel-perfect to the provided mockups.
 - **SweetAlert2 Integration:** All alerts and confirmations use beautiful SweetAlert2 modals.
-- **Mock Database:** All data is managed via `json-server` (REST API simulation).
+- **Local API:** All data is managed via [`json-server`](https://github.com/typicode/json-server), which provides a full REST API for development and testing.
 - **Vite-powered:** Fast development server, hot reload, and modern build tooling.
 
 ---
@@ -31,7 +31,7 @@ SPA-Contest/
 │   ├── services/      # API abstraction
 │   ├── utils/         # Auth/session helpers
 │   └── main.js        # App entry point
-├── db.json            # Mock database for json-server
+├── db.json            # Local database for json-server
 ├── index.html         # App root HTML
 ├── package.json       # Scripts and dependencies
 ├── README.md          # Project documentation
@@ -45,14 +45,14 @@ SPA-Contest/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/yourusername/SPA-Contest.git
+   git clone https://github.com/Sam-SSD/SPA-Contest.git
    cd SPA-Contest
    ```
 2. **Install dependencies:**
    ```bash
    npm install
    ```
-3. **Start the mock API server:**
+3. **Start the local API server (json-server):**
    ```bash
    npm run start:server
    ```
@@ -75,7 +75,7 @@ SPA-Contest/
 ---
 
 ## 🧪 API Testing (Postman)
-- Import the file `event-management-spa.postman_collection.json` into Postman.
+- Import the file `PostmanCollection.json` into Postman.
 - Test all endpoints: users, events, enrollments (CRUD).
 - Example requests included for login, registration, event management, and enrollments.
 
@@ -121,10 +121,3 @@ SPA-Contest/
 - For any issues, please open an issue or contact the author.
 
 ---
-
-## 🏆 Author & License
-- Developed by **Samuel Serna Delgado**
-- Email: samuserna2005@gmail.com
-- For the JavaScript SPA Performance Test
-- © 2024 Samuel Serna Delgado. All rights reserved.
-- Licensed under the ISC License.

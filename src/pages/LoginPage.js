@@ -13,7 +13,7 @@ export function LoginPage() {
         <input type="password" name="password" required />
         <button type="submit">Log in</button>
       </form>
-      <p>Don't have an account? <a href="#/register">Register</a></p>
+      <p>Don't have an account? <a href="/register" data-link>Register</a></p>
     </div>
   `;
 }
@@ -39,4 +39,4 @@ export function loginPageLogic() {
       }
     };
   }
-} 
+}

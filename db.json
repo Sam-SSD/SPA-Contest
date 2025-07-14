@@ -17,9 +17,9 @@
   ],
   "events": [
     {
-      "name": "PAE",
-      "description": "adwdad",
-      "date": "2222-02-22",
+      "name": "w",
+      "description": "w",
+      "date": "1111-11-11",
       "capacity": 2,
       "id": 1
     }
@@ -29,6 +29,11 @@
       "userId": 2,
       "eventId": 1,
       "id": 1
+    },
+    {
+      "userId": 2,
+      "eventId": 1,
+      "id": 2
     }
   ]
 }

@@ -1,12 +1,8 @@
-import { router } from './router/Router.js';
+import { initRouter } from './router/Router.js';
 import { renderApp } from './App.js';
 
-window.addEventListener('hashchange', () => {
-  router();
+// Inicializamos la aplicación cuando el DOM está listo
+window.addEventListener('DOMContentLoaded', () => {
+  initRouter();
   renderApp();
 });
-
-window.addEventListener('DOMContentLoaded', () => {
-  router();
-  renderApp();
-}); 

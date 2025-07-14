@@ -16,8 +16,11 @@ export async function DashboardPage() {
         </div>
         <nav>
           <ul>
-            ${user.role === 'admin' ? '<li><a href=\"#/dashboard\">Events</a></li>' : '<li><a href=\"#/dashboard\">Events</a></li><li><a href=\"#/dashboard/enrollments\">Enrollments</a></li>'}
-            <li><a href="#/logout" id="logout-link">Logout</a></li>
+            ${user.role === 'admin' ? 
+              '<li><a href="/dashboard" class="active" data-link>Events</a></li>' : 
+              '<li><a href="/dashboard/enrollments" data-link>Enrollments</a></li><li><a class="active" href="/dashboard" data-link>Events</a></li>'
+            }
+            <li><button id="logout-btn">Logout</button></li>
           </ul>
         </nav>
       </aside>
@@ -26,4 +29,4 @@ export async function DashboardPage() {
       </main>
     </div>
   `;
-} 
+}

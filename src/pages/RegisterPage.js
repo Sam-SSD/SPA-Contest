@@ -16,7 +16,7 @@ export function RegisterPage() {
         <input type="password" name="confirmPassword" required />
         <button type="submit">Register</button>
       </form>
-      <p>Already have an account? <a href="#/login">Login</a></p>
+      <p>Already have an account? <a href="/login" data-link>Login</a></p>
     </div>
   `;
 }
@@ -47,4 +47,4 @@ export function registerPageLogic() {
       }
     };
   }
-} 
+}

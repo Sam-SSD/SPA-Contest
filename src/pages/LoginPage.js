@@ -30,7 +30,15 @@ export function loginPageLogic() {
         const user = users.find(u => u.email === email && u.password === password);
         if (user) {
           login(user);
-          navigate('/dashboard');
+          Swal.fire({
+            icon: 'success',
+            title: 'Login successful!',
+            text: 'Redirecting...',
+            timer: 1500,
+            showConfirmButton: false
+          }).then(() => {
+            navigate('/dashboard');
+          });
         } else {
           Swal.fire('Error', 'Invalid credentials', 'error');
         }

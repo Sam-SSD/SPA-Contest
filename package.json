@@ -1,0 +1,20 @@
+{
+  "name": "yourfullname123",
+  "version": "1.0.0",
+  "description": "Event management SPA",
+  "main": "index.js",
+  "scripts": {
+    "start:server": "json-server --watch db.json --port 3001",
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "json-server": "^0.17.0"
+  }
+}
